@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:20:26 by wcista            #+#    #+#             */
-/*   Updated: 2022/11/26 02:10:14 by wcista           ###   ########.fr       */
+/*   Updated: 2022/11/28 19:54:43 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	is_rectangle(char *map)
 	h = 0;
 	w = 0;
 	n = -1;
-	while (map[h] != '\n')
+	while (map[h] != '\n' && map[h])
 		h++;
 	while (map[i])
 	{
@@ -49,40 +49,63 @@ void	is_rectangle(char *map)
 		error_return(map);
 }
 
-void	parsing(char *map)
+void	check_items(char *map, int exit, int pos, int item)
+{
+	if ((!exit) || exit > 1)
+		error_return(map);
+	if ((!pos) || pos > 1)
+		error_return(map);
+	if ((!item))
+		error_return(map);
+}
+
+void	parsing_n(char *map, int i, int len)
 {
 	int	exit;
 	int	pos;
-	int	i;
-	int	len;
+	int	item;
 
 	exit = 0;
 	pos = 0;
-	i = 0;
-	len = ft_strlen(map) - 1;
-
-	while (map[i] && line == 0)
+	item = 0;
+	while (map[i] && i <= len)
 	{
-		if (map[i] != 1)
+		if (map[i] != '1' && map[i] != '0' && map[i] != 'C'
+			&& map[i] != 'E' && map[i] != 'P' && map[i] != '\n')
 			error_return(map);
-		i++;
-	}
-	while (map[i] && line != 0)
-	{
-		if (map[0] != 1)
-			error_return();
-		if (map[i] == len && map[i] != 1)
+		if (map[i] == '\n' && (map[i + 1] != '1' || map[i - 1] != '1'))
 			error_return(map);
 		if (map[i] == 'E')
 			exit++;
 		if (map[i] == 'P')
 			pos++;
+		if (map[i] == 'C')
+			item++;
 		i++;
 	}
-	if (exit || exit > 1)
-		error_return(map);
-	if (pos || pos > 1)
-		error_return(map);
+	check_items(map, exit, pos, item);
+}
+
+void	parsing(char *map)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(map) - 1;
+	while (map[len] != '\n')
+	{
+		if (map[len] != '1')
+			error_return(map);
+		len--;
+	}
+	while (map[i] != '\n')
+	{
+		if (map[i] != '1')
+			error_return(map);
+		i++;
+	}
+	parsing_n(map, i, len);
 }
 
 int	get_map_size(char *map, char *av[])
@@ -93,7 +116,10 @@ int	get_map_size(char *map, char *av[])
 	len = 0;
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		return (0);
+	{
+		write(2, "ERROR\n", 6);
+		exit(EXIT_FAILURE);
+	}
 	while (map)
 	{
 		map = get_next_line(fd);
@@ -134,6 +160,29 @@ char	*get_map(char *map, char *av[])
 	return (full_map);
 }
 
+void	extension_check(char *str, char *map)
+{
+	char	*ext;
+	int		i;
+	int		j;
+
+	ext = ".ber";
+	i = (int)ft_strlen(str) - 4;
+	j = 0;
+	if ((i + 4) > 4)
+	{
+		while (str[i])
+		{
+			if (str[i] != ext[j])
+				error_return(map);
+			i++;
+			j++;
+		}
+	}
+	else
+		error_return(map);
+}
+
 int	main(int ac, char *av[])
 {
 	char	*map;
@@ -142,17 +191,11 @@ int	main(int ac, char *av[])
 	if (ac == 2)
 	{
 		map = get_map(map, av);
+		extension_check(av[1], map);
 		is_rectangle(map);
+		parsing(map);
 		printf("%s", map);
 		free(map);
 	}
 	return (0);
 }
-
-/* int	main(void)
-{
-	char	*map;
-
-	map = "111\n111\n111\n111";
-	is_rectangle(map);
-} */
