@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:20:26 by wcista            #+#    #+#             */
-/*   Updated: 2022/11/28 19:54:43 by wcista           ###   ########.fr       */
+/*   Updated: 2022/11/29 18:41:00 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,89 @@ void	extension_check(char *str, char *map)
 		error_return(map);
 }
 
+char	*tmp_map(char *map, char *map_tmp)
+{
+	int	len;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(map);
+	map_tmp = malloc((len + 1) * sizeof(char));
+	if (!map_tmp)
+		error_return(map);
+	map_tmp[len] = '\0';
+	while (map[i])
+		map_tmp[j++] = map[i++];
+	map[j] = '\0';
+	printf("%s", map_tmp);
+	return (map_tmp);
+}
+
+int	how_much_items(char *map)
+{
+	int	item;
+	int	i;
+
+	item = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == 'C')
+			item++;
+		i++;
+	}
+	return (item);
+}
+
+int	seperator(char *map)
+{
+	int	i;
+
+	while (map[i] != '\n')
+		i++;
+	return (i + 1);
+}
+
+void	pathfind(char *map, char *t_map)
+{
+	int	item;
+	int	i;
+	int	n;
+	int	p;
+
+	item = how_much_items(map);
+	n = seperator(map);
+	i = 0;
+	while (map[i])
+	{
+		 if (map[i] == 'P')
+		 {
+			p = i;
+			if (map[i] + 1 != 'E' && map[i] + 1 != '1')
+				//
+			if (map[i] - 1 != 'E' && map[i] - 1 != '1')
+				//
+			if (map[i] + n != 'E' && map[i] + n != '1')
+				//
+			if (map[i] - n != 'E' && map[i] + n != '1')
+				//
+		 }
+		 i++;
+	}
+}
+
+void	pathfinding(char *map)
+{
+	char	*map_tmp;
+
+	map_tmp = "";
+	map_tmp = tmp_map(map, map_tmp);
+	pathfind(map, map_tmp);
+	free(map_tmp);
+}
+
 int	main(int ac, char *av[])
 {
 	char	*map;
@@ -194,7 +277,8 @@ int	main(int ac, char *av[])
 		extension_check(av[1], map);
 		is_rectangle(map);
 		parsing(map);
-		printf("%s", map);
+		pathfinding(map);
+		//printf("%s", map);
 		free(map);
 	}
 	return (0);
