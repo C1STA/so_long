@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:20:26 by wcista            #+#    #+#             */
-/*   Updated: 2022/11/29 18:41:00 by wcista           ###   ########.fr       */
+/*   Updated: 2022/11/30 21:21:33 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 void	error_return(char *map)
 {
 	free(map);
+	write(2, "Error\n", 6);
+	exit(EXIT_FAILURE);
+}
+
+void	error_multiple_free(char *map, char *t_map)
+{
+	free(map);
+	free(t_map);
 	write(2, "Error\n", 6);
 	exit(EXIT_FAILURE);
 }
@@ -58,6 +66,21 @@ void	check_items(char *map, int exit, int pos, int item)
 	if ((!item))
 		error_return(map);
 }
+
+/* void	is_blocked(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == 'C')
+			\\
+		if (map[i] == 'E')
+			\\
+		if (map[i] == 'P')
+	}
+} */
 
 void	parsing_n(char *map, int i, int len)
 {
@@ -106,6 +129,7 @@ void	parsing(char *map)
 		i++;
 	}
 	parsing_n(map, i, len);
+	//is_blocked(map);
 }
 
 int	get_map_size(char *map, char *av[])
@@ -199,7 +223,6 @@ char	*tmp_map(char *map, char *map_tmp)
 	while (map[i])
 		map_tmp[j++] = map[i++];
 	map[j] = '\0';
-	printf("%s", map_tmp);
 	return (map_tmp);
 }
 
@@ -223,36 +246,93 @@ int	seperator(char *map)
 {
 	int	i;
 
+	i = 0;
 	while (map[i] != '\n')
 		i++;
-	return (i + 1);
+	return (i);
 }
 
-void	pathfind(char *map, char *t_map)
+void	coordinates(int i, int n, char *t_map, char *map)
 {
-	int	item;
-	int	i;
-	int	n;
-	int	p;
+	int	x;
 
-	item = how_much_items(map);
-	n = seperator(map);
-	i = 0;
-	while (map[i])
+	x = 0;
+	if (t_map[i + 1] != 'E' && t_map[i + 1] != '1' && t_map[i + 1] != '\n')
 	{
-		 if (map[i] == 'P')
-		 {
-			p = i;
-			if (map[i] + 1 != 'E' && map[i] + 1 != '1')
-				//
-			if (map[i] - 1 != 'E' && map[i] - 1 != '1')
-				//
-			if (map[i] + n != 'E' && map[i] + n != '1')
-				//
-			if (map[i] - n != 'E' && map[i] + n != '1')
-				//
-		 }
-		 i++;
+		x++;
+		if (t_map[i + 1] != 'P')
+			t_map[i + 1] = 'P';
+	}
+	if (t_map[i - 1] != 'E' && t_map[i - 1] != '1' && t_map[i + 1] != '\n')
+	{
+		x++;
+		if (t_map[i - 1] != 'P')
+			t_map[i - 1] = 'P';
+	}
+	if (t_map[i + n] != 'E' && t_map[i + n] != '1' && t_map[i + n] != '\n')
+	{
+		x++;
+		if (t_map[i + n] != 'P')
+			t_map[i + n] = 'P';
+	}
+	if (t_map[i - n] != 'E' && t_map[i - n] != '1' && t_map[i - n] != '\n')
+	{
+		x++;
+		if (t_map[i - n] != 'P')
+			t_map[i - n] = 'P';
+	}
+	if (x == 0)
+		error_multiple_free(map, t_map);
+}
+
+int	check_exit(int i, int n, char *map)
+{
+	int	x;
+
+	x = 0;
+	if (map[i + 1] == 'P')
+		x++;
+	if (map[i - 1] == 'P')
+		x++;
+	if (map[i + n] == 'P')
+		x++;
+	if (map[i - n] == 'P')
+		x++;
+
+	return (x);
+}
+
+void	recursive_path(char *map, char *t_map)
+{
+	int	i;
+	int	len;
+	int	n;
+	int	items;
+
+	n = seperator(map) + 1;
+	len = ft_strlen(t_map) - 1;
+	i = n + 1;
+	printf("i = n + 1 : %d\n", t_map[n]);
+	items = how_much_items(t_map);
+	while (i < (len - n))
+	{
+		if (t_map[i] == 'P')
+			coordinates(i, n, t_map, map);
+		i++;
+	}
+	i = n + 1;
+	while (i < (len - n))
+	{
+		if (t_map[i] == 'E')
+		{
+			if ((!items) && (check_exit(i, n , t_map)))
+				break ;
+			if ((!items) && (!check_exit(i,  n, t_map)))
+				error_multiple_free(map, t_map);
+			else
+				recursive_path(map, t_map);
+		}
+		i++;
 	}
 }
 
@@ -262,7 +342,8 @@ void	pathfinding(char *map)
 
 	map_tmp = "";
 	map_tmp = tmp_map(map, map_tmp);
-	pathfind(map, map_tmp);
+	recursive_path(map, map_tmp);
+	printf("\n\n%s\n\n", map_tmp);
 	free(map_tmp);
 }
 
@@ -278,7 +359,7 @@ int	main(int ac, char *av[])
 		is_rectangle(map);
 		parsing(map);
 		pathfinding(map);
-		//printf("%s", map);
+		printf("%s", map);
 		free(map);
 	}
 	return (0);
