@@ -6,12 +6,12 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:20:26 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/03 18:35:56 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/05 17:43:21 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
-#include "includes/get_next_line.h"
+#include "libs/libft/get_next_line.h"
 
 void	error_return(char *map)
 {

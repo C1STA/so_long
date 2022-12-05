@@ -6,12 +6,12 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:35:12 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/03 18:35:42 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/05 17:43:18 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
-#include "includes/get_next_line.h"
+#include "libs/libft/get_next_line.h"
 
 int	get_map_size(char *map, char *av[])
 {
