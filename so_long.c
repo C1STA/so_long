@@ -6,48 +6,52 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:25:06 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/05 19:49:55 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/23 20:37:47 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 #include "libs/minilibx-linux/mlx.h"
-#include "libs/libft/get_next_line.h"
+//#include "libs/libft/get_next_line.h"
 
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+/* typedef struct	s_image
 {
-	char	*dst;
+		void		*pointer;
+		t_vector	size;
+		char		*pixels;
+}	t_image; */
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
+/* t_image	ft_new_sprite(void *mlx, char *path)
+{
+	t_image	img;
+	
+	img.pointer = mlx_xpm_file_to_image(mlx, path, &img.size.x, &img.size.y);
+	img.pixels  = mlx_get_data_addr(img.reference, &img.bits_per_pixel, &img.line_size, &img.endian);
+	return (img);
+} */
 
 void	mlx_n(void)
 {
-	void	*mlx_pointer;
-	void	*window;
-	t_data	img;
+	t_program	mlx;
+	t_image	img;
+	int		width;
+	int		height;
 
-	mlx_pointer = mlx_init();
-	window = mlx_new_window(mlx_pointer, 1920, 1080, "Test");
-	img.img = mlx_new_image(mlx_pointer, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	my_mlx_pixel_put(&img, 5, 5, 0x00FF0000);
-	mlx_put_image_to_window(mlx_pointer, window, img.img, 0, 0);
-	mlx_destroy_window(mlx_pointer, window);
-	mlx_destroy_display(mlx_pointer);
-	free(mlx_pointer);
-	mlx_loop(mlx_pointer);
+	mlx.mlx_pointer = mlx_init();
+	mlx.window = mlx_new_window(mlx.mlx_pointer, 1920, 1080, "Test");
+	img.pointer = mlx_new_image(mlx.mlx_pointer, width, height);
+	img.pixels = mlx_get_data_addr(img.pointer, &img.bits_per_pixel, &img.line_size, &img.endian);
+	img.pointer = mlx_xpm_file_to_image(mlx.mlx_pointer, "sprites/servietsky.xpm", &width, &height);
+	
+	
+	mlx_put_image_to_window(mlx.mlx_pointer, mlx.window, img.pointer, 0, 0);
+	
+	
+	mlx_loop(mlx.mlx_pointer);
+	free(mlx.mlx_pointer);
 }
+
+void	sprites_check()
 
 int	main(int ac, char *av[])
 {
@@ -61,8 +65,8 @@ int	main(int ac, char *av[])
 		is_rectangle(map);
 		parsing(map);
 		pathfinding(map);
+		printf("%s", map);
 		mlx_n();
-		//printf("%s", map);
 		free(map);
 	}
 	return (0);
