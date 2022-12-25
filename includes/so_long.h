@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:45:12 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/23 20:40:38 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/25 18:47:22 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef enum e_sprites
 
 char	*get_map(char *map, char *av[]);
 void	pathfinding(char *map);
-void	error_return(char *map);
-void	extension_check(char *str, char *map);
+void	error_return(char *map, int n);
+void	extension_check(char *str);
 void	is_rectangle(char *map);
 void	parsing(char *map);
 

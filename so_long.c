@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:25:06 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/23 20:37:47 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/25 18:45:18 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	main(int ac, char *av[])
 	map = "";
 	if (ac == 2)
 	{
+		extension_check(av[1]);
 		map = get_map(map, av);
-		extension_check(av[1], map);
 		is_rectangle(map);
 		parsing(map);
 		pathfinding(map);
@@ -69,5 +69,7 @@ int	main(int ac, char *av[])
 		mlx_n();
 		free(map);
 	}
+	else
+		write(2, "Error\nNo arguments or multiple arguments found.\n", 48);
 	return (0);
 }
