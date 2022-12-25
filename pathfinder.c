@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:27:28 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/05 17:43:26 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/15 16:09:58 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*tmp_map(char *map, char *map_tmp)
 	len = ft_strlen(map);
 	map_tmp = malloc((len + 1) * sizeof(char));
 	if (!map_tmp)
-		error_return(map);
+		error_return(map, 0);
 	map_tmp[len] = '\0';
 	while (map[i])
 		map_tmp[j++] = map[i++];
@@ -79,7 +79,7 @@ void	pathfinding(char *map)
 		if (map_tmp[x] == 'P' || map_tmp[x] == 'C' || map_tmp[x] == 'E')
 		{
 			free(map_tmp);
-			error_return(map);
+			error_return(map, 7);
 		}
 		x++;
 	}

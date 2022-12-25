@@ -6,17 +6,32 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 19:20:26 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/05 17:43:21 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/15 16:18:24 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 #include "libs/libft/get_next_line.h"
 
-void	error_return(char *map)
+void	error_return(char *map, int n)
 {
 	free(map);
-	write(2, "Error\n", 6);
+	if (n == 0)
+		write(2, "Error\n", 6);
+	if (n == 1)
+		write(2, "Error\nThe map is not a rectangle.\n", 34);
+	if (n == 2)
+		write(2, "Error\nThe map is not surrounded by walls.\n", 42);
+	if (n == 3)
+		write(2, "Error\nThe map contains unknown elements.\n", 41);
+	if (n == 4)
+		write(2, "Error\nThe map does not contain only one exit.\n", 46);
+	if (n == 5)
+		write(2, "Error\nThe map does not contain only one player.\n", 48);
+	if (n == 6)
+		write(2, "Error\nThe map does not contain any collectibles.\n", 49);
+	if (n == 7)
+		write(2, "Error\nThe map is not playable.\n", 31);
 	exit(EXIT_FAILURE);
 }
 
@@ -38,7 +53,7 @@ void	is_rectangle(char *map)
 		if (map[i] == '\n')
 		{
 			if (i - n != (h + 1))
-				error_return(map);
+				error_return(map, 1);
 			n = i;
 			w++;
 		}
@@ -46,17 +61,17 @@ void	is_rectangle(char *map)
 	}
 	if ((h == (w + 1)) || ((int)ft_strlen(map) - 1) - n != (h)
 		|| (h) < 3 || (w + 1 < 3))
-		error_return(map);
+		error_return(map, 1);
 }
 
 void	check_items(char *map, int exit, int pos, int item)
 {
 	if ((!exit) || exit > 1)
-		error_return(map);
+		error_return(map, 4);
 	if ((!pos) || pos > 1)
-		error_return(map);
+		error_return(map, 5);
 	if ((!item))
-		error_return(map);
+		error_return(map, 6);
 }
 
 void	parsing_n(char *map, int i, int len)
@@ -72,9 +87,9 @@ void	parsing_n(char *map, int i, int len)
 	{
 		if (map[i] != '1' && map[i] != '0' && map[i] != 'C'
 			&& map[i] != 'E' && map[i] != 'P' && map[i] != '\n')
-			error_return(map);
+			error_return(map, 3);
 		if (map[i] == '\n' && (map[i + 1] != '1' || map[i - 1] != '1'))
-			error_return(map);
+			error_return(map, 2);
 		if (map[i] == 'E')
 			exit++;
 		if (map[i] == 'P')
@@ -96,13 +111,13 @@ void	parsing(char *map)
 	while (map[len] != '\n')
 	{
 		if (map[len] != '1')
-			error_return(map);
+			error_return(map, 2);
 		len--;
 	}
 	while (map[i] != '\n')
 	{
 		if (map[i] != '1')
-			error_return(map);
+			error_return(map, 2);
 		i++;
 	}
 	parsing_n(map, i, len);

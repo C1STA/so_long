@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:35:12 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/05 17:43:18 by wcista           ###   ########.fr       */
+/*   Updated: 2022/12/15 15:43:00 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_map_size(char *map, char *av[])
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 	{
-		write(2, "ERROR\n", 6);
+		write(2, "Error\nCould not open file descriptor.\n", 38);
 		exit(EXIT_FAILURE);
 	}
 	while (map)
@@ -65,7 +65,7 @@ char	*get_map(char *map, char *av[])
 	return (full_map);
 }
 
-void	extension_check(char *str, char *map)
+void	extension_check(char *str)
 {
 	char	*ext;
 	int		i;
@@ -79,11 +79,17 @@ void	extension_check(char *str, char *map)
 		while (str[i])
 		{
 			if (str[i] != ext[j])
-				error_return(map);
+			{
+				write(2, "Error\nWrong extension name.\n", 28);
+				exit(EXIT_FAILURE);
+			}
 			i++;
 			j++;
 		}
 	}
 	else
-		error_return(map);
+	{
+		write(2, "Error\nWrong extension name.\n", 28);
+		exit(EXIT_FAILURE);
+	}
 }
