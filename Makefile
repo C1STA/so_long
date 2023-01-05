@@ -20,11 +20,12 @@ MAGENTA = \033[0;35m
 CYAN = \033[0;36m
 NC = \033[0m
 
-SRCS = getmap_extension_check.c	\
-	getmap_extension_check.c	\
-	parsing.c	\
-	pathfinder.c	\
+SRCS = getmap_and_extension_check.c	\
+	is_valid.c	\
+	is_playable.c	\
+	free.c \
 	so_long.c	\
+	errors.c \
 
 LIBFT := libs/libft/libft.a
 MLX := libs/minilibx-linux/libmlx_Linux.a

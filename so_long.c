@@ -6,13 +6,12 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:25:06 by wcista            #+#    #+#             */
-/*   Updated: 2022/12/25 18:45:18 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/05 15:11:30 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 #include "libs/minilibx-linux/mlx.h"
-//#include "libs/libft/get_next_line.h"
 
 /* typedef struct	s_image
 {
@@ -51,25 +50,48 @@ void	mlx_n(void)
 	free(mlx.mlx_pointer);
 }
 
-void	sprites_check()
+//void	sprites_check()
+/* void	map_displayer(char *map)
+{
+	t_program	mlx;
+
+	mlx.mlx_pointer = mlx_init();
+	if (mlx.mlx_pointer == NULL)
+		//free_mlx();
+		mlx_put_image_to_window()
+	
+} */
+
+void	printmap(t_v *v)
+{
+	int	i;
+
+	i = 0;
+	while (i < v->m.y)
+	{
+		printf("%s", v->m.map[i]);
+		i++;
+	}
+}
 
 int	main(int ac, char *av[])
 {
-	char	*map;
+	t_v	*v;
 
-	map = "";
-	if (ac == 2)
-	{
-		extension_check(av[1]);
-		map = get_map(map, av);
-		is_rectangle(map);
-		parsing(map);
-		pathfinding(map);
-		printf("%s", map);
-		mlx_n();
-		free(map);
-	}
-	else
-		write(2, "Error\nNo arguments or multiple arguments found.\n", 48);
+	if (ac != 2)
+		return (write(2, "Error\nNo arg or multiple args found.\n", 48), 1);
+	v = (t_v *)malloc(sizeof(t_v));
+	if (!v)
+		return (1);
+	extension_check(av[1]);
+	v->m.map = get_map(av, v);
+	is_valid(v);
+	//pathfinding(map);
+	//printmap(v);
+	is_playable(av, v);
+	//map_displayer(map);
+	//mlx_n();
+	free_map(v);
+	free(v);
 	return (0);
 }
