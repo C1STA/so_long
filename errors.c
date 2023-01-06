@@ -6,18 +6,29 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 06:21:43 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/04 14:58:37 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/06 15:42:11 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/so_long.h"
 
-void	error_return_next(int n)
+void	error_return_next(t_v *v, int n)
 {
 	if (n == 10)
 		write(2, "Error\nThe map is not big enough.\n", 33);
 	if (n == 11)
 		write(2, "Error\nThe map is too big.\n", 26);
+	if (n == 12)
+	{
+		destroy_images(v);
+		write(2, "Error\nUnable to initialize sprites.\n", 36);
+	}
+	if (n == 13)
+	{
+		free_mlx(v);
+		write(2, "Error\nUnable to initialize a new window.\n", 41);
+	}
+	free(v);
 	exit(EXIT_FAILURE);
 }
 
@@ -25,9 +36,8 @@ void	error_return(t_v *v, int n)
 {
 	if (v->m.map)
 		free_map(v);
-	free(v);
 	if (n == 0)
-		write(2, "Error\nmax\n", 10);
+		write(2, "Error\nUnable to initialize minilibx.\n", 37);
 	if (n == 1)
 		write(2, "Error\nThe map is not a rectangle.\n", 34);
 	if (n == 2)
@@ -46,5 +56,5 @@ void	error_return(t_v *v, int n)
 		write(2, "Error\nCould not open file descriptor.\n", 38);
 	if (n == 9)
 		write(2, "Error\nThe map is empty.\n", 24);
-	error_return_next(n);
+	error_return_next(v, n);
 }
