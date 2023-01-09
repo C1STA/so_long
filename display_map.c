@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:52:23 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/08 11:44:22 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/09 15:32:25 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	display_map(t_v *v)
 	if (!v->x.mlx)
 		error_return(v, 0);
 	get_sprites(v);
-	v->x.win = mlx_new_window(v->x.mlx, (v->x.img_pxl * v->m.x),
+	v->x.win = mlx_new_window(v->x.mlx, (v->x.img_pxl * (v->m.x - 1)),
 			(v->x.img_pxl * v->m.y), "so_long");
 	if (!v->x.win)
 		error_return(v, 13);
 	display_objects(v);
-	mlx_hook(v->x.win, KeyPress, KeyPress, &keypress_events, v);
+	mlx_hook(v->x.win, KeyPress, KeyPressMask, &keypress_events, v);
 	mlx_hook(v->x.win, DestroyNotify, StructureNotifyMask, &free_mlx, v);
 	mlx_loop(v->x.mlx);
 }

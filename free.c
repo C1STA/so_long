@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 02:34:51 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/06 15:36:59 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:35:32 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	free_map(t_v *v)
 	free(v->m.map);
 }
 
-void	free_mlx(t_v *v)
+int	free_mlx(t_v *v)
 {
 	mlx_destroy_image(v->x.mlx, v->x.img_0);
 	mlx_destroy_image(v->x.mlx, v->x.img_1);
@@ -48,6 +48,9 @@ void	free_mlx(t_v *v)
 	mlx_destroy_window(v->x.mlx, v->x.win);
 	mlx_destroy_display(v->x.mlx);
 	free(v->x.mlx);
+	free_map(v);
+	free(v);
+	exit (0);
 }
 
 void	destroy_images(t_v *v)

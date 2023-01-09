@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:17:58 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/08 11:50:43 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:27:11 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	is_rectangle(t_v *v)
 	int	i;
 
 	i = 1;
-	if (v->m.x > 49 || v->m.y > 28)
+	if (v->m.x > 41 || v->m.y > 22)
 		error_return(v, 11);
 	if (v->m.x <= 3 || v->m.y < 3)
 		error_return(v, 10);
@@ -54,7 +54,7 @@ void	is_wall(t_v *v)
 	}
 }
 
-int		exit_identifier(t_v *v, int i, int j, int exit)
+int	exit_identifier(t_v *v, int i, int j, int exit)
 {
 	exit++;
 	v->m.x_exit = j;
@@ -62,7 +62,7 @@ int		exit_identifier(t_v *v, int i, int j, int exit)
 	return (exit);
 }
 
-void	check_items(t_v *v, int exit, int pos, int item)
+void	check_items(t_v *v, int exit, int pos)
 {
 	int	i;
 	int	j;
@@ -78,7 +78,7 @@ void	check_items(t_v *v, int exit, int pos, int item)
 			if (v->m.map[i][j] == 'P')
 				pos++;
 			if (v->m.map[i][j] == 'C')
-				item++;
+				v->m.item++;
 			j++;
 		}
 		i++;
@@ -87,23 +87,21 @@ void	check_items(t_v *v, int exit, int pos, int item)
 		error_return(v, 4);
 	if (pos != 1)
 		error_return(v, 5);
-	if (!item)
+	if (!v->m.item)
 		error_return(v, 6);
-	v->m.item = item;
 }
 
 void	is_items(t_v *v)
 {
 	int	exit;
 	int	pos;
-	int	item;
 	int	i;
 	int	j;
 
 	i = 0;
 	exit = 0;
 	pos = 0;
-	item = 0;
+	v->m.item = 0;
 	while (i < v->m.y)
 	{
 		j = 0;
@@ -117,5 +115,5 @@ void	is_items(t_v *v)
 		}
 		i++;
 	}
-	check_items(v, exit, pos, item);
+	check_items(v, exit, pos);
 }

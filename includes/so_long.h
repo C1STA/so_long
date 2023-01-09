@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:45:12 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/08 11:40:07 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/09 16:40:02 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@
 
 # define IMG_SIZE 48
 
-typedef struct s_image
-{
-	void	*pointer;
-	char	*pixels;
-	int		bits_per_pixel;
-	int		line_size;
-	int		endian;
-}	t_image;
-
 typedef struct s_map
 {
 	int		x;
@@ -53,9 +44,9 @@ typedef struct s_mlx
 	int		img_pxl;
 	void	*img_0;
 	void	*img_1;
-	void	*img_p;
 	void	*img_e;
 	void	*img_c;
+	void	*img_p;
 }	t_mlx;
 
 typedef struct s_vars
@@ -74,11 +65,12 @@ void	is_wall(t_v *v);
 void	is_items(t_v *v);
 void	free_map(t_v *v);
 void	free_tmp(char **map, t_v *v);
-void	free_mlx(t_v *v);
+int		free_mlx(t_v *v);
+int		keypress_events(int keysym, t_v *v);
 void	destroy_images(t_v *v);
 void	is_playable(char *av[], t_v *v);
-void	get_map_size(char *av[], t_v *v);
 void	get_sprites(t_v *v);
 void	display_map(t_v *v);
+void	display_objects(t_v *v);
 
 #endif
