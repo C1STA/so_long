@@ -22,9 +22,8 @@ NC = \033[0m
 
 SRCS = getmap_and_extension_check.c	\
 	is_valid.c	\
+	is_valid_functions.c \
 	is_playable.c	\
-	display_map.c \
-	get_sprites.c \
 	free.c \
 	so_long.c	\
 	errors.c \

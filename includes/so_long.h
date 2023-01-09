@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:45:12 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/06 16:51:22 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/08 11:40:07 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ typedef struct s_map
 {
 	int		x;
 	int		y;
+	int		item;
 	int		x_pos;
 	int		y_pos;
+	int		x_exit;
+	int		y_exit;
 	char	**map;
 }	t_map;
 typedef struct s_mlx
@@ -59,12 +62,16 @@ typedef struct s_vars
 {
 	t_mlx	x;
 	t_map	m;
+	int		move_counter;
 }	t_v;
 
 char	**get_map(char *av[], t_v *v);
 void	error_return(t_v *v, int n);
 void	extension_check(char *str);
 void	is_valid(t_v *v);
+void	is_rectangle(t_v *v);
+void	is_wall(t_v *v);
+void	is_items(t_v *v);
 void	free_map(t_v *v);
 void	free_tmp(char **map, t_v *v);
 void	free_mlx(t_v *v);

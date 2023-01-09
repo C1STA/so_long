@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:52:23 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/06 16:47:55 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/08 11:44:22 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,7 @@ void	display_map(t_v *v)
 	if (!v->x.win)
 		error_return(v, 13);
 	display_objects(v);
+	mlx_hook(v->x.win, KeyPress, KeyPress, &keypress_events, v);
+	mlx_hook(v->x.win, DestroyNotify, StructureNotifyMask, &free_mlx, v);
+	mlx_loop(v->x.mlx);
 }

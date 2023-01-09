@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:25:06 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/06 16:54:24 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/08 11:49:38 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int ac, char *av[])
 	t_v	*v;
 
 	if (ac != 2)
-		return (write(2, "Error\nNo arg or multiple args found.\n", 48), 1);
+		return (ft_printf("Error\nNo arg or multiple args found.\n"), 1);
 	v = (t_v *)malloc(sizeof(t_v));
 	if (!v)
 		return (1);
@@ -37,9 +37,8 @@ int	main(int ac, char *av[])
 	v->m.map = get_map(av, v);
 	is_valid(v);
 	is_playable(av, v);
-	display_map(v);
+	//display_map(v);
 	free_map(v);
-	free_mlx(v);
 	free(v);
 	return (0);
 }
