@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:45:12 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/09 16:40:02 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/10 22:29:01 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# define IMG_SIZE 48
+# define IMG_SIZE 32
 
 typedef struct s_map
 {
@@ -47,6 +47,10 @@ typedef struct s_mlx
 	void	*img_e;
 	void	*img_c;
 	void	*img_p;
+	void	*img_p_top;
+	void	*img_p_left;
+	void	*img_p_right;
+	void	*img_h;
 }	t_mlx;
 
 typedef struct s_vars
@@ -72,5 +76,6 @@ void	is_playable(char *av[], t_v *v);
 void	get_sprites(t_v *v);
 void	display_map(t_v *v);
 void	display_objects(t_v *v);
+int		display_moves(t_v *v);
 
 #endif

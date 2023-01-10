@@ -6,11 +6,23 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 13:52:23 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/09 15:32:25 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/10 22:32:35 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	display_moves(t_v *v)
+{
+	char	*str;
+
+	mlx_set_font(v->x.mlx, v->x.win, "rk24");
+	mlx_string_put(v->x.mlx, v->x.win, 2, ((v->m.y * 32) - 2), 0x000000FF, "Moves :");
+	str = ft_itoa(v->move_counter);
+	mlx_string_put(v->x.mlx, v->x.win, 80, ((v->m.y * 32) - 2), 0x000000FF, str);
+	free(str);
+	return (0);
+}
 
 void	put_object_to_window(t_v *v, int y, int x)
 {
@@ -29,6 +41,8 @@ void	put_object_to_window(t_v *v, int y, int x)
 		mlx_put_image_to_window(v->x.mlx, v->x.win, v->x.img_c, x_, y_);
 	if (v->m.map[y][x] == 'P')
 		mlx_put_image_to_window(v->x.mlx, v->x.win, v->x.img_p, x_, y_);
+	if (v->m.map[y][x] == 'H')
+		mlx_put_image_to_window(v->x.mlx, v->x.win, v->x.img_h, x_, y_);
 }
 
 void	display_objects(t_v *v)
@@ -63,5 +77,6 @@ void	display_map(t_v *v)
 	display_objects(v);
 	mlx_hook(v->x.win, KeyPress, KeyPressMask, &keypress_events, v);
 	mlx_hook(v->x.win, DestroyNotify, StructureNotifyMask, &free_mlx, v);
+	mlx_loop_hook(v->x.mlx, display_moves, v);
 	mlx_loop(v->x.mlx);
 }

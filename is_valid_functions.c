@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:17:58 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/09 16:27:11 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/10 15:44:37 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	is_rectangle(t_v *v)
 	int	i;
 
 	i = 1;
-	if (v->m.x > 41 || v->m.y > 22)
+	if (v->m.x > 61 || v->m.y > 33)
 		error_return(v, 11);
 	if (v->m.x <= 3 || v->m.y < 3)
 		error_return(v, 10);
@@ -109,7 +109,8 @@ void	is_items(t_v *v)
 		{
 			if (v->m.map[i][j] != '1' && v->m.map[i][j] != '0'
 			&& v->m.map[i][j] != 'C' && v->m.map[i][j] != 'E'
-			&& v->m.map[i][j] != 'P' && v->m.map[i][j] != '\n')
+			&& v->m.map[i][j] != 'P' && v->m.map[i][j] != '\n'
+			&& v->m.map[i][j] != 'H')
 				error_return(v, 3);
 			j++;
 		}
