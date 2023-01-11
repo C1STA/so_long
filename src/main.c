@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_valid.c                                         :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 11:38:22 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/10 17:42:43 by wcista           ###   ########.fr       */
+/*   Created: 2022/12/03 18:25:06 by wcista            #+#    #+#             */
+/*   Updated: 2023/01/11 14:31:34 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
-void	is_valid(t_v *v)
+int	main(int ac, char *av[])
 {
-	is_rectangle(v);
-	is_wall(v);
-	is_items(v);
+	t_v	*v;
+
+	if (ac != 2)
+		return (ft_printf("Error\nNo arg or multiple args found.\n"), 1);
+	extension_check(av[1]);
+	v = (t_v *)malloc(sizeof(t_v));
+	if (!v)
+		return (1);
+	v->m.map = get_map(av, v);
+	is_valid(v);
+	is_playable(av, v);
+	display_map(v);
+	return (0);
 }

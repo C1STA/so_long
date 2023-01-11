@@ -6,11 +6,11 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 02:34:51 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/10 18:31:27 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:32:24 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 void	free_tmp(char **map, t_v *v)
 {

@@ -6,11 +6,11 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:17:58 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/10 15:44:37 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:31:43 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/so_long.h"
+#include "../includes/so_long.h"
 
 void	is_rectangle(t_v *v)
 {

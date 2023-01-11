@@ -6,7 +6,7 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:45:12 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/10 22:29:01 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/11 13:23:40 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ void	free_map(t_v *v);
 void	free_tmp(char **map, t_v *v);
 int		free_mlx(t_v *v);
 int		keypress_events(int keysym, t_v *v);
+void	put_object_to_window(t_v *v, int y, int x, int n);
 void	destroy_images(t_v *v);
 void	is_playable(char *av[], t_v *v);
 void	get_sprites(t_v *v);
 void	display_map(t_v *v);
-void	display_objects(t_v *v);
+void	display_objects(t_v *v, int n);
 int		display_moves(t_v *v);
 
 #endif

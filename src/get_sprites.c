@@ -6,11 +6,11 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:27:05 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/10 15:40:14 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:32:19 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../includes/so_long.h"
 
 void	init_sprites(t_v *v)
 {

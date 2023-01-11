@@ -6,11 +6,11 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:27:28 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/10 15:48:46 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:31:46 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/so_long.h"
+#include "../includes/so_long.h"
 
 void	flood_fill(char **map, int y, int x)
 {

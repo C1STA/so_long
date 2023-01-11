@@ -6,11 +6,11 @@
 /*   By: wcista <wcista@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/31 06:21:43 by wcista            #+#    #+#             */
-/*   Updated: 2023/01/09 15:27:29 by wcista           ###   ########.fr       */
+/*   Updated: 2023/01/11 14:32:27 by wcista           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/so_long.h"
+#include "../includes/so_long.h"
 
 void	error_return_next(t_v *v, int n)
 {
